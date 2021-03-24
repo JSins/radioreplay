@@ -1,0 +1,77 @@
+@media screen and (max-width: $mobile) {
+  .posts {
+    .podcast_player {
+      .player {
+        height: unset !important;
+        .player__main {
+          display: block !important;
+          .player__artwork {
+            display: none;
+          }
+          .player__body {
+            padding: 1rem;
+            .currently-playing {
+              display: none;
+            }
+            .play-progress {
+              .play-pause-controls {
+                filter: saturate(0);
+              }
+              .progress__filled {
+                background-color: $link-color !important;
+              }
+            }
+            .player-panels-nav {
+              display: none;
+            }
+          }
+        }
+      }
+      .player-panels {
+        display: none;
+      }
+    }
+    .podcast_meta {
+      font-family: "Karla", sans-serif;
+    }
+  }
+}
+
+@media screen and (min-width: $half-mobile) {
+  .posts {
+    .podcast_player {
+      .player {
+        height: unset !important;
+        .player__main {
+          display: block !important;
+          .player__artwork {
+            display: none;
+          }
+          .player__body {
+            padding: 1rem;
+            .currently-playing {
+              display: none;
+            }
+            .play-progress {
+              .play-pause-controls {
+                filter: saturate(0);
+              }
+              .progress__filled {
+                background-color: $link-color !important;
+              }
+            }
+            .player-panels-nav {
+              display: none;
+            }
+          }
+        }
+      }
+      .player-panels {
+        display: none;
+      }
+    }
+    .podcast_meta {
+      font-family: "Karla", sans-serif;
+    }
+  }
+}

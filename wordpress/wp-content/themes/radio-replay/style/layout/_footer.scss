@@ -1,0 +1,5 @@
+.site-footer {
+  &-inner {
+    @extend .inner-width-lg;
+  }
+}

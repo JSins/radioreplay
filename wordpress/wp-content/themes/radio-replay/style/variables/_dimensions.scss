@@ -1,0 +1,8 @@
+$inner-lg: 1320px;
+$mobile: 850px;
+$half-mobile: 1100px;
+
+.inner-width-lg {
+  max-width: $inner-lg;
+  margin: 0 auto;
+}

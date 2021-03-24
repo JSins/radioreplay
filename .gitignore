@@ -1,0 +1,7 @@
+# ignore node dependency directories
+wordpress/*
+!wordpress/.htaccess
+!wordpress/.htpasswd
+!wordpress/wp-config.php
+!wordpress/db-backup/
+!wordpress/wp-content/

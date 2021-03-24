@@ -1,0 +1,19 @@
+
+# BEGIN WordPress
+# Die Anweisungen (Zeilen) zwischen „BEGIN WordPress“ und „END WordPress“ sind
+# dynamisch generiert und sollten nur über WordPress-Filter geändert werden.
+# Alle Änderungen an den Anweisungen zwischen diesen Markierungen werden überschrieben.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /radioreplay/wordpress/
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /radioreplay/wordpress/index.php [L]
+</IfModule>
+
+php_value upload_max_filesize 200M
+php_value post_max_size 200M
+
+# END WordPress

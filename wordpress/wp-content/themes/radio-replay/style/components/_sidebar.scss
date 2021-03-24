@@ -1,0 +1,42 @@
+.sidebar {
+  .widget-area {
+    .widget {
+      background-color: $widget-bg;
+      padding: 2rem;
+      border-radius: 7px;
+      margin-bottom: 3rem;
+      &_search {
+        padding: 0.5rem 1rem;
+        border-radius: 3rem;
+        box-shadow: $shadow;
+        form {
+          display: flex;
+          justify-content: space-between;
+          .search-field {
+            border: 0;
+          }
+          .search-submit {
+            background-color: $widget-bg;
+            border: 0;
+          }
+        }
+      }
+      &_recent_episodes {
+        ul {
+          margin: 0;
+          padding: 0;
+          li {
+            list-style: none;
+            padding: 1rem 0;
+            &:not(:last-child) {
+              border-bottom: solid 1px rgb(236, 236, 236);
+            }
+          }
+        }
+      }
+    }
+  }
+  @media only screen and (max-width: $mobile) {
+    margin-left: -25%;
+  }
+}

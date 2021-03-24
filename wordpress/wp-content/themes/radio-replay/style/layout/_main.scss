@@ -1,0 +1,29 @@
+.site-main {
+  min-height: 90vh;
+  &-inner {
+    @extend .inner-width-lg;
+    padding: 3rem 1rem;
+
+    display: flex;
+    justify-content: space-between;
+
+    .sidebar {
+      flex-basis: 25%;
+    }
+    .posts {
+      flex-basis: 75%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: right;
+    }
+
+    .progress {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    @media only screen and (max-width: $mobile) {
+      display: block;
+    }
+  }
+}

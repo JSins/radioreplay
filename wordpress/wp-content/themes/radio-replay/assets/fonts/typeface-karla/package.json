@@ -1,0 +1,48 @@
+{
+  "_from": "typeface-karla",
+  "_id": "typeface-karla@1.1.13",
+  "_inBundle": false,
+  "_integrity": "sha512-bf23baj5OseN2racGQBcvaLBhIRfw5AEJDyZvD3Ko3vWpd2LlxmMmM2PjODfRH1VAWhI0lrQwmOeSIUTKyj/gA==",
+  "_location": "/typeface-karla",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "typeface-karla",
+    "name": "typeface-karla",
+    "escapedName": "typeface-karla",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/typeface-karla/-/typeface-karla-1.1.13.tgz",
+  "_shasum": "617a408add211d08828856994c826e2799d51810",
+  "_spec": "typeface-karla",
+  "_where": "C:\\xampp\\htdocs\\RadioReplay",
+  "author": {
+    "name": "Kyle Mathews",
+    "email": "mathews.kyle@gmail.com"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Karla typeface",
+  "keywords": [
+    "typeface",
+    "font",
+    "font family",
+    "google fonts",
+    "karla"
+  ],
+  "license": "MIT",
+  "main": "index.css",
+  "name": "typeface-karla",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KyleAMathews/typefaces/tree/master/packages/karla"
+  },
+  "version": "1.1.13"
+}
