@@ -1,0 +1,48 @@
+{
+  "_from": "typeface-hind",
+  "_id": "typeface-hind@1.1.13",
+  "_inBundle": false,
+  "_integrity": "sha512-dzUGzhb/5ENcO5F0yD9dHb+shroX+E0c/GU5WgpK3kvOGUUXORjr5NwiSijtOgo5ia3kJEr5wQTafwq3iudFFA==",
+  "_location": "/typeface-hind",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "typeface-hind",
+    "name": "typeface-hind",
+    "escapedName": "typeface-hind",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/typeface-hind/-/typeface-hind-1.1.13.tgz",
+  "_shasum": "f93d6d8b502e1af249f4ac6dd01469544649284e",
+  "_spec": "typeface-hind",
+  "_where": "C:\\xampp\\htdocs\\RadioReplay",
+  "author": {
+    "name": "Kyle Mathews",
+    "email": "mathews.kyle@gmail.com"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Hind typeface",
+  "keywords": [
+    "typeface",
+    "font",
+    "font family",
+    "google fonts",
+    "hind"
+  ],
+  "license": "MIT",
+  "main": "index.css",
+  "name": "typeface-hind",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KyleAMathews/typefaces/tree/master/packages/hind"
+  },
+  "version": "1.1.13"
+}

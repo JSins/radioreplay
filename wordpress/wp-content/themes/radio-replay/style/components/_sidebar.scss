@@ -1,27 +1,42 @@
 .sidebar {
+  @media only screen and (max-width: $mobile) {
+    position: fixed;
+    z-index: 5;
+    left: 0;
+    top: 0;
+    padding: 1rem;
+    background-color: $main;
+    height: 100vh;
+    overflow: scroll;
+    left: 100vw;
+  }
   .widget-area {
     .widget {
       background-color: $widget-bg;
-      padding: 2rem;
-      border-radius: 7px;
-      margin-bottom: 3rem;
+      padding: 1.5rem;
+      border-radius: $b-r;
+      margin-bottom: 2rem;
+      box-shadow: $shadow;
       &_search {
         padding: 0.5rem 1rem;
-        border-radius: 3rem;
-        box-shadow: $shadow;
+        border-radius: $b-r;
         form {
           display: flex;
           justify-content: space-between;
+          label {
+            width: 100%;
+          }
           .search-field {
             border: 0;
+            width: 100%;
           }
           .search-submit {
-            background-color: $widget-bg;
-            border: 0;
+            display: none;
           }
         }
       }
-      &_recent_episodes {
+      &_recent_episodes,
+      &_recent_entries {
         ul {
           margin: 0;
           padding: 0;
@@ -35,8 +50,5 @@
         }
       }
     }
-  }
-  @media only screen and (max-width: $mobile) {
-    margin-left: -25%;
   }
 }

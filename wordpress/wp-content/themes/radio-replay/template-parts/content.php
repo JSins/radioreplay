@@ -9,58 +9,52 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
+<article id="post-<?php the_ID(); ?>" <?php post_class(); ?> data-aos="fade-left">
 
-	<?php radio_replay_post_thumbnail(); ?>
-	
-		<?php
-		if ( is_singular() ) :
-			the_title( '<h1 class="entry-title">', '</h1>' );
-		else :
-			the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
-		endif;
+	<div class="post-image">
+		<?php radio_replay_post_thumbnail(); ?>
+	</div>
+	<div class="post-content">
+		<header>
+			<h2><a href="<?php echo the_permalink() ?>"><?php the_title() ?></a></h2>
+		</header>
+		<main>
+			<?php the_excerpt() ?>
+		</main>
+		<footer>
+			<div class="meta-item">
+				<i data-feather="calendar"></i>
+				<div class="meta-item-content">
+					<span class="meta-item-content-desc">Datum:</span><br>
+					<?php radio_replay_posted_on(); ?>
+				</div>
+			</div>
+			<div class="meta-item">
+				<i data-feather="user"></i>
+				<div class="meta-item-content">
+					<span class="meta-item-content-desc">Autor:</span><br>
+					<?php radio_replay_posted_by(); ?>
+				</div>
+			</div>
+			<div class="meta-item">
+				<i data-feather="message-square"></i>
+				<div class="meta-item-content">
+					<span class="meta-item-content-desc">Social:</span><br>
+					<a href="<?php the_permalink(); ?>/#respond">
+						<?php 
+						if(get_comments_number() == 1)
+						{
+							echo get_comments_number() . " Kommentar";
+						}
+						else
+						{
+							echo get_comments_number() . " Kommentare";
+						}
+						?>
+					</a>
+				</div>
+			</div>
+		</footer>
+	</div>
 
-		if ( 'post' === get_post_type() ) :
-			?>
-			<div class="entry-meta">
-				<?php
-				radio_replay_posted_on();
-				radio_replay_posted_by();
-				?>
-			</div><!-- .entry-meta -->
-		<?php endif; ?>
-	</header><!-- .entry-header -->
-
-	
-
-	<div class="entry-content">
-		<?php
-		the_content(
-			sprintf(
-				wp_kses(
-					/* translators: %s: Name of current post. Only visible to screen readers */
-					__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'radio-replay' ),
-					array(
-						'span' => array(
-							'class' => array(),
-						),
-					)
-				),
-				wp_kses_post( get_the_title() )
-			)
-		);
-
-		wp_link_pages(
-			array(
-				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'radio-replay' ),
-				'after'  => '</div>',
-			)
-		);
-		?>
-	</div><!-- .entry-content -->
-
-	<footer class="entry-footer">
-		<?php radio_replay_entry_footer(); ?>
-	</footer><!-- .entry-footer -->
 </article><!-- #post-<?php the_ID(); ?> -->

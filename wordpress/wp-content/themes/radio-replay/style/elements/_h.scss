@@ -4,10 +4,11 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Rubik", sans-serif;
+  font-family: $font-heading;
   font-weight: 700;
   color: $main;
-  line-height: 1.7rem;
+  margin: 0;
+  transition: 0.3s;
   a {
     font-weight: inherit;
     color: $main;

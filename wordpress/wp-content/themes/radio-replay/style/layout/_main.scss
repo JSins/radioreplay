@@ -1,5 +1,7 @@
 .site-main {
   min-height: 90vh;
+  overflow: hidden;
+  padding-top: 4rem;
   &-inner {
     @extend .inner-width-lg;
     padding: 3rem 1rem;
@@ -12,9 +14,6 @@
     }
     .posts {
       flex-basis: 75%;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: right;
     }
 
     .progress {
