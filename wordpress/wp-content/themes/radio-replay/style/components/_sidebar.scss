@@ -16,6 +16,7 @@
       height: 24px;
       margin-bottom: 2rem;
       display: none;
+      color: var(--main);
       @media only screen and (max-width: $mobile) {
         display: block;
       }
