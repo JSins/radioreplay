@@ -44,6 +44,11 @@
             border: 0;
             width: 100%;
             background-color: var(--component);
+            color: var(--main);
+            font-weight: bold;
+            &:focus {
+              color: var(--main);
+            }
             &::placeholder {
               color: var(--text-alt);
             }

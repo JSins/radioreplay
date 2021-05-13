@@ -1,5 +1,5 @@
 .site-footer {
-  background-color: $footer-bg;
+  background-color: var(--component);
   padding: 2rem 0;
   &-inner {
     @extend .inner-width-lg;

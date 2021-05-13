@@ -20,6 +20,11 @@
           line-height: 1.2rem !important;
         }
       }
+      .currently-playing {
+        .show {
+          color: var(--main) !important;
+        }
+      }
       .play-progress {
         .progress {
           background-color: var(--component) !important;

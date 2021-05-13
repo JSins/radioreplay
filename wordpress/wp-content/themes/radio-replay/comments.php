@@ -32,7 +32,7 @@ if ( post_password_required() ) {
 			if ( '1' === $radio_replay_comment_count ) {
 				printf(
 					/* translators: 1: title. */
-					esc_html__( 'One thought on &ldquo;%1$s&rdquo;', 'radio-replay' ),
+					esc_html__( 'Ein Kommentar', 'radio-replay' ),
 					'<span>' . wp_kses_post( get_the_title() ) . '</span>'
 				);
 			} else {
