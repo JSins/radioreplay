@@ -14627,7 +14627,7 @@ msgstr "Nicht freigegeben"
 
 #: wp-includes/comment-template.php:2485
 msgid "Post Comment"
-msgstr "Kommentar abschicken"
+msgstr "Kommentieren"
 
 #: wp-includes/comment-template.php:2484
 msgid "Cancel reply"

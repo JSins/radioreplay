@@ -416,16 +416,17 @@ class Frontend_Controller extends Controller {
 	public function episode_meta_details ( $episode_id = 0, $context = 'content', $return = false ) {
 
 		if ( ! $episode_id ) {
-			return;
+			return '';
 		}
 
 		$file = $this->get_enclosure( $episode_id );
 
 		if ( ! $file ) {
-			return;
+			return '';
 		}
 
 		$link = $this->get_episode_download_link( $episode_id, 'download' );
+
 		$duration = get_post_meta( $episode_id , 'duration' , true );
 		$size = get_post_meta( $episode_id , 'filesize' , true );
 		if ( ! $size ) {
@@ -475,101 +476,33 @@ class Frontend_Controller extends Controller {
 			return $meta;
 		}
 
-		$meta_display = '';
-		$podcast_display = '';
-		$subscribe_display = '';
-
 		$meta_sep = apply_filters( 'ssp_episode_meta_separator', ' | ' );
 
-		foreach ( $meta as $key => $data ) {
+		$podcast_display   = $this->get_podcast_display( $meta, $meta_sep );
+		$subscribe_display = $this->get_subscribe_display( $episode_id, $context, $meta_sep );
+		$meta_display      = $this->get_meta_display( $podcast_display, $subscribe_display );
 
-			if( ! $data ) {
-				continue;
-			}
+		return apply_filters('ssp_include_player_meta', $meta_display );
+	}
 
-			if( $podcast_display ) {
-				$podcast_display .= $meta_sep;
-			}
+	/**
+	 * @param string $podcast_display
+	 * @param string $subscribe_display
+	 *
+	 * @return string
+	 */
+	protected function get_meta_display( $podcast_display, $subscribe_display ) {
+		$meta_display = '';
 
-			switch( $key ) {
-
-				case 'link':
-					$podcast_display .= '<a href="' . esc_url( $data ) . '" title="' . get_the_title() . ' " class="podcast-meta-download">' . __( 'Download file' , 'seriously-simple-podcasting' ) . '</a>';
-					break;
-
-				case 'new_window':
-					$play_link = add_query_arg( 'ref', 'new_window', $link );
-					$podcast_display .= '<a href="' . esc_url( $play_link ) . '" target="_blank" title="' . get_the_title() . ' " class="podcast-meta-new-window">' . __( 'Play in new window' , 'seriously-simple-podcasting' ) . '</a>';
-					break;
-
-				case 'duration':
-					$podcast_display .= '<span class="podcast-meta-duration">' . __( 'Duration' , 'seriously-simple-podcasting' ) . ': ' . $data . '</span>';
-					break;
-
-				case 'date_recorded':
-					$podcast_display .= '<span class="podcast-meta-date">' . __( 'Recorded on' , 'seriously-simple-podcasting' ) . ' ' . date_i18n( get_option( 'date_format' ), strtotime( $data ) ) . '</span>';
-					break;
-
-				// Allow for custom items to be added, but only allow a small amount of HTML tags
-				default:
-					$allowed_tags = array(
-						'strong' => array(),
-						'b' => array(),
-						'em' => array(),
-						'i' => array(),
-						'a' => array(
-							'href' => array(),
-							'title' => array(),
-							'target' => array(),
-						),
-						'span' => array(
-							'style' => array(),
-						),
-					);
-					$podcast_display .= wp_kses( $data, $allowed_tags );
-					break;
-
-			}
-		}
-
-		// @todo implement dependancy injection
-		$options_handler = new Options_Handler();
-		$subscribe_urls  = $options_handler->get_subscribe_urls( $episode_id, $context );
-
-		foreach( $subscribe_urls as $key => $data ){
-
-			if ( empty( $data['url'] ) ) {
-				continue;
-			}
-
-			if( $subscribe_display ){
-				$subscribe_display .= $meta_sep;
-			}
-
-			if (preg_match('/\b_url\b/', $key) === false) {
-				$allowed_tags = array(
-					'strong' => array(),
-					'b' => array(),
-					'em' => array(),
-					'i' => array(),
-					'a' => array(
-						'href' => array(),
-						'title' => array(),
-						'target' => array(),
-					),
-				);
-				$subscribe_display .= wp_kses( $data['url'], $allowed_tags );
-			}else {
-				$subscribe_display .= '<a href="' . esc_url( $data['url'] ) . '" target="_blank" title="' . $data['label'] . '" class="podcast-meta-itunes">' . $data['label'] . '</a>';
-			}
-
+		if ( ! $podcast_display && ! $subscribe_display ) {
+			return $meta_display;
 		}
 
 		if ( ! empty( $podcast_display ) || ! empty( $subscribe_display ) ) {
 
 			$meta_display .= '<div class="podcast_meta"><aside>';
 
-			$ss_podcasting_player_meta_data_enabled = get_option('ss_podcasting_player_meta_data_enabled', 'on');
+			$ss_podcasting_player_meta_data_enabled = get_option( 'ss_podcasting_player_meta_data_enabled', 'on' );
 
 			if ( $ss_podcasting_player_meta_data_enabled && $ss_podcasting_player_meta_data_enabled == 'on' ) {
 				if ( ! empty( $podcast_display ) ) {
@@ -592,8 +525,123 @@ class Frontend_Controller extends Controller {
 			$meta_display .= '</aside></div>';
 		}
 
-		return apply_filters('ssp_include_player_meta', $meta_display );
+		return $meta_display;
+	}
 
+
+	/**
+	 * @param array $meta
+	 * @param string $meta_sep
+	 *
+	 * @return string
+	 */
+	protected function get_podcast_display( $meta, $meta_sep ) {
+		$podcast_display = '';
+
+		foreach ( $meta as $key => $data ) {
+
+			if ( ! $data ) {
+				continue;
+			}
+
+			$sep = $podcast_display ? $meta_sep : '';
+
+			switch ( $key ) {
+
+				case 'link':
+					if ( 'on' === get_option( 'ss_podcasting_download_file_enabled', 'on' ) ) {
+						$podcast_display .= $sep . '<a href="' . esc_url( $data ) . '" title="' . get_the_title() . ' " class="podcast-meta-download">' . __( 'Download file', 'seriously-simple-podcasting' ) . '</a>';
+					}
+					break;
+
+				case 'new_window':
+					if ( 'on' === get_option( 'ss_podcasting_play_in_new_window_enabled', 'on' ) ) {
+						$play_link       = add_query_arg( 'ref', 'new_window', $meta['link'] );
+						$podcast_display .= $sep . '<a href="' . esc_url( $play_link ) . '" target="_blank" title="' . get_the_title() . ' " class="podcast-meta-new-window">' . __( 'Play in new window', 'seriously-simple-podcasting' ) . '</a>';
+					}
+
+					break;
+
+				case 'duration':
+					if ( 'on' === get_option( 'ss_podcasting_duration_enabled', 'on' ) ) {
+						$podcast_display .= $sep . '<span class="podcast-meta-duration">' . __( 'Duration', 'seriously-simple-podcasting' ) . ': ' . $data . '</span>';
+					}
+					break;
+
+				case 'date_recorded':
+					if ( 'on' === get_option( 'ss_podcasting_date_recorded_enabled', 'on' ) ) {
+						$podcast_display .= $sep . '<span class="podcast-meta-date">' . __( 'Recorded on', 'seriously-simple-podcasting' ) . ' ' . date_i18n( get_option( 'date_format' ), strtotime( $data ) ) . '</span>';
+					}
+					break;
+
+				// Allow for custom items to be added, but only allow a small amount of HTML tags
+				default:
+					$allowed_tags    = array(
+						'strong' => array(),
+						'b'      => array(),
+						'em'     => array(),
+						'i'      => array(),
+						'a'      => array(
+							'href'   => array(),
+							'title'  => array(),
+							'target' => array(),
+						),
+						'span'   => array(
+							'style' => array(),
+						),
+					);
+					$podcast_display .= $sep . wp_kses( $data, $allowed_tags );
+					break;
+			}
+		}
+
+		return $podcast_display;
+	}
+
+	/**
+	 * @param int $episode_id
+	 * @param string $context
+	 * @param string $meta_sep
+	 *
+	 * @return string
+	 */
+	protected function get_subscribe_display( $episode_id, $context, $meta_sep ){
+		$subscribe_display = '';
+		if ( 'on' !== get_option( 'ss_podcasting_player_subscribe_urls_enabled', 'on' ) ) {
+			return $subscribe_display;
+		}
+		$options_handler = new Options_Handler();
+		$subscribe_urls  = $options_handler->get_subscribe_urls( $episode_id, $context );
+		foreach ( $subscribe_urls as $key => $data ) {
+
+			if ( empty( $data['url'] ) ) {
+				continue;
+			}
+
+			if ( $subscribe_display ) {
+				$subscribe_display .= $meta_sep;
+			}
+
+			if ( preg_match( '/\b_url\b/', $key ) === false ) {
+				$allowed_tags      = array(
+					'strong' => array(),
+					'b'      => array(),
+					'em'     => array(),
+					'i'      => array(),
+					'a'      => array(
+						'href'   => array(),
+						'title'  => array(),
+						'target' => array(),
+					),
+				);
+				$subscribe_display .= wp_kses( $data['url'], $allowed_tags );
+			} else {
+				$subscribe_display .= '<a href="' . esc_url( $data['url'] ) . '" target="_blank" title="' . $data['label'] . '" class="podcast-meta-itunes">' . $data['label'] . '</a>';
+			}
+
+		}
+
+		return $subscribe_display;
 	}
 
 
@@ -784,7 +832,7 @@ class Frontend_Controller extends Controller {
 		$include_in_main_query = get_option('ss_podcasting_include_in_main_query');
 		if ( $include_in_main_query && $include_in_main_query == 'on' ) {
 			if ( $query->is_home() && $query->is_main_query() ) {
-				$query->set( 'post_type', array( 'post', 'podcast' ) );
+				$query->set( 'post_type', array( 'post', SSP_CPT_PODCAST ) );
 			}
 		}
 	}
@@ -799,7 +847,7 @@ class Frontend_Controller extends Controller {
 			return;
 		}
 
-		if ( is_post_type_archive( 'podcast' ) || is_tax( 'series' ) ) {
+		if ( is_post_type_archive( SSP_CPT_PODCAST ) || is_tax( 'series' ) ) {
 
 			$podcast_post_types = ssp_post_types( false );
 
@@ -812,7 +860,7 @@ class Frontend_Controller extends Controller {
 
 				$query->set( 'post__in', $episode_ids );
 
-				$podcast_post_types[] = 'podcast';
+				$podcast_post_types[] = SSP_CPT_PODCAST;
 				$query->set( 'post_type', $podcast_post_types );
 
 			}
@@ -835,7 +883,7 @@ class Frontend_Controller extends Controller {
 			return;
 		}
 
-		$tag_archive_post_types = apply_filters( 'ssp_tag_archive_post_types', array('post', 'podcast') ) ;
+		$tag_archive_post_types = apply_filters( 'ssp_tag_archive_post_types', array('post', SSP_CPT_PODCAST) ) ;
 		$query->set( 'post_type', $tag_archive_post_types );
 
 	}
@@ -902,25 +950,50 @@ class Frontend_Controller extends Controller {
 
 	/**
 	 * Get episode image
-	 * @param  integer $id   ID of episode
+	 * @param  integer $post_id   ID of episode
 	 * @param  string  $size Image size
 	 * @return string        Image HTML markup
 	 */
-	public function get_image( $id = 0, $size = 'full' ) {
+	public function get_image( $post_id = 0, $size = 'full' ) {
 		$image = '';
 
-		if ( has_post_thumbnail( $id ) ) {
+		if ( has_post_thumbnail( $post_id ) ) {
 			// If not a string or an array, and not an integer, default to 200x9999.
 			if ( is_int( $size ) || ( 0 < intval( $size ) ) ) {
 				$size = array( intval( $size ), intval( $size ) );
 			} elseif ( ! is_string( $size ) && ! is_array( $size ) ) {
 				$size = array( 200, 9999 );
 			}
-			$image = get_the_post_thumbnail( intval( $id ), $size );
+			$image = get_the_post_thumbnail( intval( $post_id ), $size );
 		}
 
-		return apply_filters( 'ssp_episode_image', $image, $id );
+		return apply_filters( 'ssp_episode_image', $image, $post_id );
 	}
+
+	/**
+	 * Get episode image url
+	 *
+	 * @param integer $post_id ID of episode
+	 * @param string $size Image size
+	 *
+	 * @return string        Image url
+	 */
+	public function get_episode_image_url( $post_id = 0, $size = 'full' ) {
+		$image_url = '';
+		$image_id  = get_post_meta( $post_id, 'cover_image_id', true );
+
+		if ( ! $image_id ) {
+			$image_id = get_post_thumbnail_id( $post_id );
+		}
+
+		if ( $image_id ) {
+			$image_att = wp_get_attachment_image_src( $image_id, $size );
+			$image_url = isset( $image_att[0] ) ? $image_att[0] : '';
+		}
+
+		return apply_filters( 'ssp_episode_image_url', $image_url, $post_id );
+	}
+
 
 	/**
 	 * Get podcast
@@ -1373,7 +1446,7 @@ class Frontend_Controller extends Controller {
 	 */
 	public function feed_content_type ( $content_type = '', $type = '' ) {
 
-		if( 'podcast' == $type ) {
+		if( SSP_CPT_PODCAST == $type ) {
 			$content_type = 'text/xml';
 		}
 

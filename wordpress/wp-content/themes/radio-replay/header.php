@@ -47,7 +47,7 @@
 			</div><!-- .site-branding -->
 
 			<nav id="site-navigation" class="main-navigation">
-				<div class="menu-open"><i data-feather="align-right"></i></div>
+				<div class="menu-open"><i data-feather="search"></i></div>
 				<?php
 				wp_nav_menu(
 					array(

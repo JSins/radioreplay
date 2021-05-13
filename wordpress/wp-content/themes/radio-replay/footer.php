@@ -13,19 +13,15 @@
 
 	<footer id="colophon" class="site-footer">
 		<div class="site-footer-inner">
-			<div class="site-info">
-				<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'radio-replay' ) ); ?>">
-					<?php
-					/* translators: %s: CMS name, i.e. WordPress. */
-					printf( esc_html__( 'Proudly powered by %s', 'radio-replay' ), 'WordPress' );
-					?>
-				</a>
-				<span class="sep"> | </span>
-					<?php
-					/* translators: 1: Theme name, 2: Theme author. */
-					printf( esc_html__( 'Theme: %1$s by %2$s.', 'radio-replay' ), 'radio-replay', '<a href="http://underscores.me/">Underscores.me</a>' );
-					?>
-			</div><!-- .site-info -->
+			<div class="footer-contact">
+				Radio Replay
+			</div>
+			<div class="footer-social">
+				Instagram
+			</div>
+			<div class="footer-links">
+				Impressum
+			</div>
 		</div>
 	</footer><!-- #colophon -->
 </div><!-- #page -->

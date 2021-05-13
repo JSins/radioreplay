@@ -1,5 +1,14 @@
 .site-footer {
+  background-color: $footer-bg;
+  padding: 2rem 0;
   &-inner {
     @extend .inner-width-lg;
+    display: flex;
+    color: $main-bg;
+    & > * {
+      flex: 1;
+    }
+    .footer-contact {
+    }
   }
 }

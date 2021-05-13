@@ -9,7 +9,7 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?> data-aos="fade-left">
+<article id="post-<?php the_ID(); ?>" <?php post_class(); ?> data-aos="fade-up">
 
 	<div class="post-image">
 		<?php radio_replay_post_thumbnail(); ?>
@@ -40,7 +40,7 @@
 				<i data-feather="message-square"></i>
 				<div class="meta-item-content">
 					<span class="meta-item-content-desc">Social:</span><br>
-					<a href="<?php the_permalink(); ?>/#respond">
+					<a href="<?php the_permalink(); ?>/#comments">
 						<?php 
 						if(get_comments_number() == 1)
 						{

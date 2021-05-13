@@ -1,0 +1,48 @@
+{
+  "_from": "typeface-bungee",
+  "_id": "typeface-bungee@1.1.13",
+  "_inBundle": false,
+  "_integrity": "sha512-kmRsa0x1u9wIeps0QPZijpx18WLN+tXdR3N+IWAULZho5e2VMJ6PdNpI41pBPJDr4AFlV+5m23zArMjiK8DJ8Q==",
+  "_location": "/typeface-bungee",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "typeface-bungee",
+    "name": "typeface-bungee",
+    "escapedName": "typeface-bungee",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/typeface-bungee/-/typeface-bungee-1.1.13.tgz",
+  "_shasum": "6c3fc6ea039b07c16ccbce0cd89a3c9fd5a0e34c",
+  "_spec": "typeface-bungee",
+  "_where": "C:\\xampp\\htdocs\\RadioReplay",
+  "author": {
+    "name": "Kyle Mathews",
+    "email": "mathews.kyle@gmail.com"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Bungee typeface",
+  "keywords": [
+    "typeface",
+    "font",
+    "font family",
+    "google fonts",
+    "bungee"
+  ],
+  "license": "MIT",
+  "main": "index.css",
+  "name": "typeface-bungee",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KyleAMathews/typefaces/tree/master/packages/bungee"
+  },
+  "version": "1.1.13"
+}

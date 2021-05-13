@@ -29,7 +29,7 @@ class Settings_Handler {
 				'revision',
 				'nav_menu_item',
 				'wooframework',
-				'podcast',
+				SSP_CPT_PODCAST,
 			);
 			if ( in_array( $post_type, $disallowed_post_types, true ) ) {
 				continue;
@@ -289,6 +289,10 @@ class Settings_Handler {
 				'label' => __( 'Spirituality', 'seriously-simple-podcasting' ),
 				'group' => __( 'Religion & Spirituality', 'seriously-simple-podcasting' ),
 			),
+			'Religion'       => array(
+				'label' => __( 'Religion', 'seriously-simple-podcasting' ),
+				'group' => __( 'Religion & Spirituality', 'seriously-simple-podcasting' ),
+			),
 			'Astronomy'          => array(
 				'label' => __( 'Astronomy', 'seriously-simple-podcasting' ),
 				'group' => __( 'Science', 'seriously-simple-podcasting' ),
@@ -498,8 +502,15 @@ class Settings_Handler {
 				),
 				array(
 					'id'          => 'player_meta_data_enabled',
-					'label'       => __( 'Enable Player meta data ', 'seriously-simple-podcasting' ),
+					'label'       => __( 'Enable Player meta data', 'seriously-simple-podcasting' ),
 					'description' => __( 'Turn this on to enable player meta data underneath the player. (download link, episode duration and date recorded).', 'seriously-simple-podcasting' ),
+					'type'        => 'checkbox',
+					'default'     => 'on',
+				),
+				array(
+					'id'          => 'player_subscribe_urls_enabled',
+					'label'       => __( 'Show subscribe urls', 'seriously-simple-podcasting' ),
+					'description' => __( 'Turn on to display subscribe urls under the player', 'seriously-simple-podcasting' ),
 					'type'        => 'checkbox',
 					'default'     => 'on',
 				),
@@ -509,16 +520,16 @@ class Settings_Handler {
 					'description' => __( 'Select the style of media player you wish to display on your site.', 'seriously-simple-podcasting' ),
 					'type'        => 'radio',
 					'options'     => array(
-						'standard' => __( 'Standard Compact Player', 'seriously-simple-podcasting' ),
 						'larger'   => __( 'HTML5 Player With Album Art', 'seriously-simple-podcasting' ),
+						'standard' => __( 'Standard Compact Player', 'seriously-simple-podcasting' ),
 					),
-					'default'     => 'standard',
+					'default'     => 'larger',
 				),
 			),
 		);
 
-		$ss_podcasting_player_style = get_option( 'ss_podcasting_player_style', 'standard' );
-		if ( 'standard' !== $ss_podcasting_player_style ) {
+		$ss_podcasting_player_style = get_option( 'ss_podcasting_player_style', 'larger' );
+		if ( 'larger' === $ss_podcasting_player_style ) {
 			$html_5_player_settings = array(
 				array(
 					'id'          => 'player_mode',
@@ -531,9 +542,59 @@ class Settings_Handler {
 					),
 					'default'     => 'dark',
 				),
+				array(
+					'id'          => 'subscribe_button_enabled',
+					'label'       => __( 'Show subscribe button', 'seriously-simple-podcasting' ),
+					'description' => __( 'Turn on to display the subscribe button', 'seriously-simple-podcasting' ),
+					'type'        => 'checkbox',
+					'default'     => 'on',
+				),
+				array(
+					'id'          => 'share_button_enabled',
+					'label'       => __( 'Show share button', 'seriously-simple-podcasting' ),
+					'description' => __( 'Turn on to display the share button', 'seriously-simple-podcasting' ),
+					'type'        => 'checkbox',
+					'default'     => 'on',
+				),
 			);
 
 			$settings['player-settings']['fields'] = array_merge( $settings['player-settings']['fields'], $html_5_player_settings );
+		}
+
+		$meta_data_enabled = 'on' === get_option( 'ss_podcasting_player_meta_data_enabled', 'on' );
+		if ( $meta_data_enabled ) {
+			$meta_settings = array(
+				array(
+					'id'          => 'download_file_enabled',
+					'label'       => __( 'Show download file link', 'seriously-simple-podcasting' ),
+					'description' => __( 'Turn on to display the download file link', 'seriously-simple-podcasting' ),
+					'type'        => 'checkbox',
+					'default'     => 'on',
+				),
+				array(
+					'id'          => 'play_in_new_window_enabled',
+					'label'       => __( 'Show play in new window link', 'seriously-simple-podcasting' ),
+					'description' => __( 'Turn on to display the play in new window link', 'seriously-simple-podcasting' ),
+					'type'        => 'checkbox',
+					'default'     => 'on',
+				),
+				array(
+					'id'          => 'duration_enabled',
+					'label'       => __( 'Show duration', 'seriously-simple-podcasting' ),
+					'description' => __( 'Turn on to display the track duration information', 'seriously-simple-podcasting' ),
+					'type'        => 'checkbox',
+					'default'     => 'on',
+				),
+				array(
+					'id'          => 'date_recorded_enabled',
+					'label'       => __( 'Show recorded date', 'seriously-simple-podcasting' ),
+					'description' => __( 'Turn on to display the recorded date information', 'seriously-simple-podcasting' ),
+					'type'        => 'checkbox',
+					'default'     => 'on',
+				),
+			);
+
+			$settings['player-settings']['fields'] = array_merge( $settings['player-settings']['fields'], $meta_settings );
 		}
 
 		$settings['feed-details'] = array(
@@ -652,7 +713,7 @@ class Settings_Handler {
 			array(
 				'id'          => 'data_image',
 				'label'       => __( 'Cover Image', 'seriously-simple-podcasting' ),
-				'description' => __( 'Your podcast cover image - must have a minimum size of 1400x1400 px.', 'seriously-simple-podcasting' ),
+				'description' => __( 'The podcast cover image must be between 1400x1400px and 3000x3000px in size and either .jpg or .png file format', 'seriously-simple-podcasting' ),
 				'type'        => 'image',
 				'default'     => '',
 				'placeholder' => '',
@@ -1090,6 +1151,7 @@ class Settings_Handler {
 
 	/**
 	 * Checks if a user role exists, used in the SettingsController add_caps method
+	 * @deprecated Use Roles_Handler::role_exists() instead
 	 *
 	 * @param $role
 	 *

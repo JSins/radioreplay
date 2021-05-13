@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '7c3a7e2ddc03487f51392ecb60dc7a0cf108f66c',
+    'reference' => '3e200f132b6e5c610d1771e2da9e4fac1104da88',
     'name' => 'castos/seriously-simple-podcasting',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '7c3a7e2ddc03487f51392ecb60dc7a0cf108f66c',
+      'reference' => '3e200f132b6e5c610d1771e2da9e4fac1104da88',
     ),
   ),
 );

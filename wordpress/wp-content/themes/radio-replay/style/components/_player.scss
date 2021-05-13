@@ -1,77 +1,59 @@
-@media screen and (max-width: $mobile) {
-  .posts {
-    .podcast_player {
-      .player {
-        height: unset !important;
-        .player__main {
-          display: block !important;
-          .player__artwork {
-            display: none;
+.podcast_player {
+  // box-shadow: var(--shadow) !important;
+  border-radius: $b-r !important;
+  .player {
+    background: var(--component-alt) !important;
+    border-radius: $b-r !important;
+    &__artwork {
+    }
+    &__body {
+      .episode-title {
+        font-family: $font-heading;
+        font-size: 1.5rem;
+        line-height: 2rem !important;
+        height: auto !important;
+        font-weight: 700;
+        color: var(--main) !important;
+        @media only screen and (max-width: $mobile) {
+          font-size: 1rem;
+          white-space: normal;
+          line-height: 1.2rem !important;
+        }
+      }
+      .play-progress {
+        .progress {
+          background-color: var(--component) !important;
+          &__filled {
+            background-color: var(--main) !important;
           }
-          .player__body {
-            padding: 1rem;
-            .currently-playing {
-              display: none;
-            }
-            .play-progress {
-              .play-pause-controls {
-                filter: saturate(0);
-              }
-              .progress__filled {
-                background-color: $link-color !important;
-              }
-            }
-            .player-panels-nav {
-              display: none;
-            }
+        }
+        .playback__controls {
+          button {
+            height: 20px !important;
+            background-color: var(--main) !important;
+          }
+          .player-btn__speed {
+            background-color: unset !important;
+            color: var(--main) !important;
+            border-color: var(--main) !important;
+          }
+        }
+        .playback__timers {
+          time {
+            color: var(--main) !important;
           }
         }
       }
-      .player-panels {
-        display: none;
+      .player-panels-nav {
+        button {
+          color: var(--main) !important;
+        }
       }
-    }
-    .podcast_meta {
-      font-family: "Karla", sans-serif;
     }
   }
 }
 
-@media screen and (min-width: $half-mobile) {
-  .posts {
-    .podcast_player {
-      .player {
-        height: unset !important;
-        .player__main {
-          display: block !important;
-          .player__artwork {
-            display: none;
-          }
-          .player__body {
-            padding: 1rem;
-            .currently-playing {
-              display: none;
-            }
-            .play-progress {
-              .play-pause-controls {
-                filter: saturate(0);
-              }
-              .progress__filled {
-                background-color: $link-color !important;
-              }
-            }
-            .player-panels-nav {
-              display: none;
-            }
-          }
-        }
-      }
-      .player-panels {
-        display: none;
-      }
-    }
-    .podcast_meta {
-      font-family: "Karla", sans-serif;
-    }
-  }
+.podcast_meta {
+  font-family: $font-desc;
+  margin-bottom: 3rem;
 }

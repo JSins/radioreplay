@@ -2,3 +2,31 @@ textarea:focus,
 input:focus {
   outline: none;
 }
+
+input[type="submit"] {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  color: var(--main);
+  font-weight: 700;
+  &:hover {
+    cursor: pointer;
+    color: red;
+  }
+}
+
+input[type="text"],
+input[type="url"],
+input[type="email"] {
+  border: 0;
+  background-color: var(--component-alt);
+  border-radius: $b-r;
+  padding: 0.5rem;
+}
+textarea {
+  border: 0;
+  background-color: var(--component-alt);
+  padding: 1rem;
+  resize: none;
+  border-radius: $b-r;
+}

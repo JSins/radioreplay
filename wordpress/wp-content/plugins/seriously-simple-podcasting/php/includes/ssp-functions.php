@@ -1,6 +1,7 @@
 <?php
 
 use SeriouslySimplePodcasting\Handlers\Castos_Handler;
+use SeriouslySimplePodcasting\Handlers\Images_Handler;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -241,7 +242,7 @@ if ( ! function_exists( 'ss_podcast' ) ) {
 
 					setup_postdata( $post );
 
-					$class = 'podcast';
+					$class = SSP_CPT_PODCAST;
 
 					$title = get_the_title();
 					if ( 'true' === $args['link_title'] ) {
@@ -269,7 +270,7 @@ if ( ! function_exists( 'ss_podcast' ) ) {
 					$template = $tpl;
 					$i ++;
 
-					$class = 'podcast';
+					$class = SSP_CPT_PODCAST;
 
 					$title = $series->title;
 					if ( 'true' === $args['link_title'] ) {
@@ -324,7 +325,7 @@ if ( ! function_exists( 'ssp_episode_ids' ) ) {
 
 		// Setup the default args
 		$args = array(
-			'post_type'      => array( 'podcast' ),
+			'post_type'      => array( SSP_CPT_PODCAST ),
 			'post_status'    => 'publish',
 			'posts_per_page' => - 1,
 			'fields'         => 'ids',
@@ -471,7 +472,7 @@ if ( ! function_exists( 'ssp_post_types' ) ) {
 
 		// Add `podcast` post type to array if required
 		if ( $include_podcast ) {
-			$podcast_post_types[] = 'podcast';
+			$podcast_post_types[] = SSP_CPT_PODCAST;
 		}
 
 		if ( $verify ) {
@@ -903,6 +904,8 @@ if ( ! function_exists( 'ssp_setup_upload_credentials' ) ) {
 if ( ! function_exists( 'ssp_get_image_id_from_url' ) ) {
 	/**
 	 * Get image ID when only the URL of the image is known
+	 * @deprecated Do not use this function. Use attachment_url_to_postid() instead
+	 * @todo: remove it in the next versions
 	 *
 	 * @param $image_url
 	 *
@@ -1159,5 +1162,52 @@ if ( ! function_exists( 'ssp_is_elementor_ok' ) ) {
 			return true;
 		}
 		return false;
+	}
+}
+
+/**
+ * Checks if the feed image is valid
+ */
+if ( ! function_exists( 'ssp_is_feed_image_valid' ) ) {
+	/**
+	 * @param string $image_url
+	 *
+	 * @return bool
+	 */
+	function ssp_is_feed_image_valid( $image_url ) {
+		global $images_handler; /** @var Images_Handler $images_handler */
+		return $images_handler->is_feed_image_valid( $image_url );
+	}
+}
+
+/**
+ * Checks if the image is square
+ */
+if ( ! function_exists( 'ssp_is_image_square' ) ) {
+	/**
+	 * @param array $image_data_array Converted image data array with width and height keys
+	 *
+	 * @return bool
+	 * */
+	function ssp_is_image_square( $image_data_array = array() ) {
+		global $images_handler; /** @var Images_Handler $images_handler */
+		return $images_handler->is_image_square( $image_data_array );
+	}
+}
+
+
+/**
+ * Almost the same function as wp_get_attachment_image_src(), but returning the associative human readable array
+ */
+if ( ! function_exists( 'ssp_get_attachment_image_src' ) ) {
+	/**
+	 * @param int $attachment_id
+	 * @param string $size
+	 *
+	 * @return array
+	 */
+	function  ssp_get_attachment_image_src( $attachment_id, $size = "full" ) {
+		global $images_handler; /** @var Images_Handler $images_handler */
+		return $images_handler->get_attachment_image_src( $attachment_id, $size  );
 	}
 }

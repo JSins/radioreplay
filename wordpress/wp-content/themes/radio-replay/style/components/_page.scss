@@ -1,0 +1,14 @@
+.page-content {
+  margin-top: 0;
+  article {
+    background-color: var(--component);
+    border-radius: $b-r;
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    header {
+      h1 {
+        color: var(--main);
+      }
+    }
+  }
+}

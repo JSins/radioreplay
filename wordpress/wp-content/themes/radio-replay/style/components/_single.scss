@@ -1,0 +1,118 @@
+.post-single {
+  .sidebar {
+    @media only screen and (min-width: $mobile) {
+      display: none;
+    }
+  }
+  article {
+    display: flex;
+    @media only screen and (max-width: $mobile) {
+      display: block;
+    }
+    .post-content {
+      flex-basis: 75%;
+      &-main {
+        background-color: var(--component);
+        border-radius: $b-r;
+        box-shadow: var(--shadow);
+        padding: 2rem;
+        margin-bottom: 2rem;
+        header {
+          h2 {
+            font-size: 2rem;
+          }
+        }
+        @media only screen and (max-width: $mobile) {
+          padding: 1.5rem;
+        }
+        .post-navigation {
+          margin-bottom: 0;
+          .nav-links {
+            justify-content: space-between;
+            @media only screen and (max-width: $mobile) {
+              display: block;
+            }
+            & > * {
+              flex: none;
+              @media only screen and (max-width: $mobile) {
+                margin-bottom: 0.3rem;
+              }
+              a {
+                display: flex;
+                align-items: center;
+              }
+              svg {
+                height: 1.2rem;
+              }
+            }
+            align-items: center;
+            font-family: $font-desc;
+            font-size: 0.9rem;
+          }
+        }
+      }
+      &-footer {
+        background-color: var(--component);
+        border-radius: $b-r;
+        box-shadow: var(--shadow);
+        padding: 2rem;
+        h2,
+        h3 {
+          color: var(--main);
+        }
+        @media only screen and (max-width: $mobile) {
+          padding: 1.5rem;
+        }
+      }
+    }
+    .post-info {
+      margin-left: 2rem;
+      flex-basis: 25%;
+      @media only screen and (max-width: $mobile) {
+        display: none;
+      }
+      &-inner {
+        background-color: var(--component);
+        border-radius: $b-r;
+        box-shadow: var(--shadow);
+        header {
+          .post-image {
+            img {
+              border-top-left-radius: $b-r;
+              border-top-right-radius: $b-r;
+            }
+          }
+        }
+        main {
+          padding: 1.5rem;
+          padding-bottom: 0;
+          h2 {
+            color: var(--main);
+          }
+        }
+        footer {
+          font-family: $font-desc;
+          padding: 1.5rem;
+          .meta-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            svg {
+              color: var(--main);
+              padding: 0 0.1rem;
+              margin: 0 0.3rem;
+            }
+            &-content {
+              line-height: 1rem;
+              pointer-events: none;
+              &-desc {
+                font-size: 0.8rem;
+                color: var(--text-alt);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

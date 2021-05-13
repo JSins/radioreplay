@@ -1,8 +1,8 @@
 .site {
-  background-color: $main-bg;
+  background-color: var(--main-bg);
 }
 
 * {
   box-sizing: border-box;
-  transition: 0.2s;
+  transition: $trans-std;
 }

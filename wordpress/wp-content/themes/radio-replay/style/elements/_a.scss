@@ -1,12 +1,19 @@
 a {
   text-decoration: none;
-  color: $main;
+  color: var(--main);
   font-weight: 700;
-  transition: 0.2s;
+  transition: $trans-fast;
   &:visited {
-    color: $main;
+    color: var(--main);
+    &:hover {
+      color: var(--hover);
+    }
   }
   &:hover {
-    color: red;
+    color: var(--hover);
+  }
+
+  & * {
+    transition: $trans-fast;
   }
 }

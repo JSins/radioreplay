@@ -1,9 +1,10 @@
 .site-header {
-  background-color: $white;
-  padding: 0.5rem;
+  background-color: var(--component);
+  padding: 0.5rem 0;
   position: fixed;
-  width: 100vw;
   z-index: 3;
+  width: 100%;
+  box-shadow: var(--shadow);
   &-inner {
     @extend .inner-width-lg;
     display: flex;
@@ -11,13 +12,16 @@
     justify-content: space-between;
     padding: 0 1rem;
     .site-branding {
-      width: 200px;
+      width: 300px;
       .custom-logo-link {
         display: block;
         line-height: 0;
         img {
-          width: 100%;
+          width: auto;
           height: 4rem;
+          @media (prefers-color-scheme: dark) {
+            filter: brightness(0) invert(1);
+          }
         }
       }
       @media only screen and (max-width: $mobile) {
@@ -38,7 +42,7 @@
         display: none;
         @media only screen and (max-width: $mobile) {
           display: block;
-          height: max-content;
+          height: 24px;
         }
       }
       .menu {
@@ -50,7 +54,9 @@
         &-item {
           a {
             font-family: $font-desc;
-            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1rem;
+            text-transform: uppercase;
           }
           margin-left: 1rem;
         }

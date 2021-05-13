@@ -1,9 +1,35 @@
 $main: #220088;
+$main-light: #f8f6ff;
 $main-bg: #e9e9e9;
 $widget-bg: #ffffff;
 $dark-grey: #333;
 $link-color: #220088;
+$footer-bg: #333;
 
 $white: #fff;
 
-$shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+@media (prefers-color-scheme: light) {
+  :root {
+    --main: #220088;
+    --main-bg: #e9e9e9;
+    --component: #ffffff;
+    --component-alt: #f8f6ff;
+    --text: #333;
+    --text-alt: #444444;
+    --shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    --hover: #ff1313;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --main: #ffffff;
+    --main-bg: #080020;
+    --component: #130736;
+    --component-alt: #221841;
+    --text: #ffffff;
+    --text-alt: #bfb9d8;
+    --shadow: rgba(19, 19, 19, 0.5) 0px 2px 8px 0px;
+    --hover: #ff1313;
+  }
+}

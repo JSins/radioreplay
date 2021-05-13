@@ -1,19 +1,16 @@
 .site-main {
   min-height: 90vh;
-  overflow: hidden;
-  padding-top: 4rem;
+  // overflow: hidden;
+  padding-top: 5rem;
+  @media only screen and (max-width: $mobile) {
+    padding-top: 4rem;
+  }
   &-inner {
     @extend .inner-width-lg;
-    padding: 3rem 1rem;
-
-    display: flex;
-    justify-content: space-between;
+    padding: 2rem;
 
     .sidebar {
       flex-basis: 25%;
-    }
-    .posts {
-      flex-basis: 75%;
     }
 
     .progress {
@@ -21,8 +18,26 @@
         cursor: pointer;
       }
     }
+  }
+}
+
+.home,
+.search,
+.archive,
+.page {
+  .site-main-inner {
     @media only screen and (max-width: $mobile) {
       display: block;
+    }
+    display: flex;
+    justify-content: space-between;
+    .posts,
+    .page-content {
+      flex-basis: 75%;
+      margin-left: 2rem;
+      @media only screen and (max-width: $mobile) {
+        margin-left: 0;
+      }
     }
   }
 }

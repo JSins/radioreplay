@@ -4,19 +4,33 @@
     z-index: 5;
     left: 0;
     top: 0;
-    padding: 1rem;
-    background-color: $main;
+    padding: 1.5rem;
     height: 100vh;
     overflow: scroll;
     left: 100vw;
+    background-color: var(--component-alt);
+    width: 100%;
   }
   .widget-area {
+    .menu-close {
+      height: 24px;
+      margin-bottom: 2rem;
+      display: none;
+      @media only screen and (max-width: $mobile) {
+        display: block;
+      }
+    }
     .widget {
-      background-color: $widget-bg;
+      background-color: var(--component);
       padding: 1.5rem;
       border-radius: $b-r;
       margin-bottom: 2rem;
-      box-shadow: $shadow;
+      box-shadow: var(--shadow);
+      &-title {
+        margin-bottom: 0.5rem;
+        color: var(--main);
+        line-height: 1.7rem;
+      }
       &_search {
         padding: 0.5rem 1rem;
         border-radius: $b-r;
@@ -29,6 +43,10 @@
           .search-field {
             border: 0;
             width: 100%;
+            background-color: var(--component);
+            &::placeholder {
+              color: var(--text-alt);
+            }
           }
           .search-submit {
             display: none;
@@ -42,9 +60,27 @@
           padding: 0;
           li {
             list-style: none;
-            padding: 1rem 0;
+            padding: 0.5rem 0;
             &:not(:last-child) {
-              border-bottom: solid 1px rgb(236, 236, 236);
+              // border-bottom: solid 1px var(--text-alt);
+            }
+            a {
+              color: var(--text-alt);
+              &:hover {
+                color: var(--hover) !important;
+              }
+            }
+          }
+        }
+      }
+      &_tag_cloud {
+        .tagcloud {
+          font-family: $font-desc;
+          text-transform: uppercase;
+          a {
+            color: var(--text-alt);
+            &:hover {
+              color: var(--hover) !important;
             }
           }
         }

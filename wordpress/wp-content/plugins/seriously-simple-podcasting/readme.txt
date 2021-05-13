@@ -2,9 +2,9 @@
 Contributors: PodcastMotor, psykro, zahardoc, simondowdles, hlashbrooke, whyisjake
 Tags: podcast, audio, video, vodcast, rss, mp3, mp4, feed, itunes, podcasting, media, stitcher, google play, playlist
 Requires at least: 4.4
-Tested up to: 5.6.2
+Tested up to: 5.7
 Requires PHP: 5.6
-Stable tag: 2.6.1
+Stable tag: 2.6.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -158,6 +158,54 @@ You can find complete user and developer documentation (along with the FAQs) on 
 15. View podcast episodes in the At A Glance widget on the main WordPress dashboard.
 
 == Changelog ==
+
+= 2.6.6 =
+* 2021-05-11
+* UPDATE SUMMARY: Fixed the Elementor icons missing issue, minor improvements
+* [FIX] Elementor subscribe icons missing fixes
+* [UPDATE] Do not request player file on page load
+* [UPDATE] Added religion subcategory
+
+= 2.6.5 =
+* 2021-05-07
+* UPDATE SUMMARY: Fix the feed error for the case if the author name has punctuation.
+* [FIX] Fixed the feed error for the case if the author name has punctuation.
+
+= 2.6.4 =
+* 2021-05-04
+* UPDATE SUMMARY: HTML player improvements and fixes, feed images fixes
+* [UPDATE] Changed images validation settings
+* [UPDATE] Options to disable the subscribe and share button in the player
+* [UPDATE] Options for displaying the player meta data
+* [UPDATE] Make player translatable
+* [UPDATE] Include alt attribute in web player
+* [UPDATE] Make HTML5 player to be the default one
+* [FIX] Show series feed image in the feed
+* [FIX] Settings UI: cover image is not being shown after image upload
+* [FIX] Excerpt for content:encoded tag
+* [FIX] Value for <itunes:author> should be author from feed details
+* [FIX] Player subscribe icons
+
+= 2.6.3 =
+* 2021-04-19
+* UPDATE SUMMARY: Roles and capabilities improvements, no image issues fixes
+* [UPDATE] Added podcast capabilities
+* [UPDATE] Added series capabilities
+* [UPDATE] Added two roles for managing podcasts
+* [FIX] Users with manage_podcast capability couldn't change the plugin settings
+* [FIX] Series image not displaying in series feed
+* [FIX] Feed cover image not displaying in the player
+
+= 2.6.2 =
+* 2021-04-06
+* UPDATE SUMMARY: Podcasts synchronization improvements, RSS images
+* [UPDATE] Delayed episode uploading to Castos
+* [UPDATE] Added helper text to Series area
+* [UPDATE] HTML player style improvements
+* [UPDATE] Check the Cover Image size dimensions upon upload
+* [UPDATE] Added episode specific image to RSS feed
+* [FIX] Showing notifications when the episode is added or updated (classic editor)
+* [FIX] When the post is duplicated it is not synchronized with Castos
 
 = 2.6.1 =
 * 2021-03-05
