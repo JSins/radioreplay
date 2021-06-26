@@ -5,10 +5,12 @@ namespace SeriouslySimplePodcasting\Controllers;
 use SeriouslySimplePodcasting\Handlers\Admin_Notifications_Handler;
 use SeriouslySimplePodcasting\Handlers\CPT_Podcast_Handler;
 use SeriouslySimplePodcasting\Handlers\Roles_Handler;
+use SeriouslySimplePodcasting\Handlers\Settings_Handler;
 use SeriouslySimplePodcasting\Handlers\Upgrade_Handler;
 use SeriouslySimplePodcasting\Ajax\Ajax_Handler;
 use SeriouslySimplePodcasting\Handlers\Castos_Handler;
 use SeriouslySimplePodcasting\Helpers\Log_Helper;
+use SeriouslySimplePodcasting\Renderers\Renderer;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -44,6 +46,11 @@ class Admin_Controller extends Controller {
 	 * @var Feed_Controller
 	 */
 	protected $feed_controller;
+
+	/**
+	 * @var Onboarding_Controller
+	 */
+	protected $onboarding_controller;
 
 	/**
 	 * @var Log_Helper
@@ -88,6 +95,9 @@ class Admin_Controller extends Controller {
 
 		$this->feed_controller = new Feed_Controller( $this->file, $this->version );
 
+		// Todo: dependency injection for other controllers as well
+		$this->onboarding_controller = new Onboarding_Controller( $this->file, $this->version, new Renderer(), new Settings_Handler() );
+
 		$this->roles_handler = new Roles_Handler();
 
 		$this->cpt_podcast_handler = new CPT_Podcast_Handler( $this->roles_handler );
@@ -113,9 +123,6 @@ class Admin_Controller extends Controller {
 
 		// Run any updates required
 		add_action( 'init', array( $this, 'update' ), 11 );
-
-		// Dismiss the upgrade screen and redirect to the last screen the user was on
-		add_action( 'init', array( $this, 'dismiss_upgrade_screen' ) ); //todo: can we move it to 'admin_init'?
 
 		// Dismiss the categories update screen
 		add_action( 'init', array( $this, 'dismiss_categories_update' ) ); //todo: can we move it to 'admin_init'?
@@ -186,9 +193,6 @@ class Admin_Controller extends Controller {
 
 			// Check for, setup or ignore import of existing podcasts.
 			add_action( 'admin_init', array( $this, 'ignore_importing_existing_podcasts' ) );
-
-			// Show upgrade screen
-			add_action( 'current_screen', array( $this, 'show_upgrade_screen' ), 12 );
 
 			// Filter Embed HTML Code
 			add_filter( 'embed_html', array( $this, 'ssp_filter_embed_code' ), 10, 1 );
@@ -962,7 +966,7 @@ HTML;
 	 */
 	public function enqueue_admin_styles( $hook ) {
 
-		wp_register_style( 'ssp-admin', esc_url( $this->assets_url . 'css/admin.css' ), array(), $this->version );
+		wp_register_style( 'ssp-admin', esc_url( $this->assets_url . 'admin/css/admin.css' ), array(), $this->version );
 		wp_enqueue_style( 'ssp-admin' );
 
 		// Datepicker
@@ -1365,65 +1369,6 @@ HTML;
 		) {
 			update_option( 'ss_podcasting_podmotor_import_podcasts', 'false' );
 		}
-	}
-
-	/**
-	 * Show upgrade screen when users upgrade from 1.15.1
-	 */
-	public function show_upgrade_screen() {
-		// first check that we should show the screen
-		$post_type = ( isset( $_GET['post_type'] ) ? filter_var( $_GET['post_type'], FILTER_SANITIZE_STRING ) : '' );
-		if ( empty( $post_type ) || $this->token !== $post_type ) {
-			return;
-		}
-
-		$page = ( isset( $_GET['page'] ) ? filter_var( $_GET['page'], FILTER_SANITIZE_STRING ) : '' );
-		if ( ! empty( $page ) && 'upgrade' === $page ) {
-			return;
-		}
-
-		// check if the user has dismissed this page previously
-		$ssp_upgrade_page_visited = get_option( 'ssp_upgrade_page_visited', '' );
-		if ( 'true' === $ssp_upgrade_page_visited ) {
-			return;
-		}
-
-		// check version number is upgraded
-		$ssp_version = get_option( 'ssp_version', '' );
-
-		// The enhanced register_meta function is only available for WordPress 4.6+
-		if ( version_compare( $ssp_version, '1.15.1', '<' ) ) {
-			return;
-		}
-
-		$current_url = rawurlencode( ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
-
-		// redirect
-		$url = add_query_arg( array(
-			'post_type'    => $this->token,
-			'page'         => 'upgrade',
-			'ssp_redirect' => $current_url
-		), admin_url( 'edit.php' ) );
-		wp_redirect( $url );
-		exit;
-	}
-
-	/**
-	 * Dismiss upgrade screen when user clicks 'Dismiss' link
-	 */
-	public function dismiss_upgrade_screen() {
-		if ( ! filter_input( INPUT_GET, 'ssp_dismiss_upgrade' ) ||
-			 ! wp_verify_nonce( $_GET['nonce'], 'ssp_dismiss_upgrade' ) ||
-			 ! current_user_can( 'manage_podcast' )
-		) {
-			return;
-		}
-
-		$ssp_redirect = ( isset( $_GET['ssp_redirect'] ) ? filter_var( $_GET['ssp_redirect'], FILTER_SANITIZE_STRING ) : '' );
-
-		update_option( 'ssp_upgrade_page_visited', 'true' );
-		wp_safe_redirect( $ssp_redirect );
-		exit;
 	}
 
 	/**

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit3d3d0c5be57201dde13ca2bdd78f7ace
+class ComposerStaticInitae750e5de82187db036fdb8f7562f6cc
 {
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
@@ -18,6 +18,7 @@ class ComposerStaticInit3d3d0c5be57201dde13ca2bdd78f7ace
         'SeriouslySimplePodcasting\\Controllers\\Feed_Controller' => __DIR__ . '/../..' . '/php/classes/controllers/class-feed-controller.php',
         'SeriouslySimplePodcasting\\Controllers\\Frontend_Controller' => __DIR__ . '/../..' . '/php/classes/controllers/class-frontend-controller.php',
         'SeriouslySimplePodcasting\\Controllers\\Import_Controller' => __DIR__ . '/../..' . '/php/classes/controllers/class-import-controller.php',
+        'SeriouslySimplePodcasting\\Controllers\\Onboarding_Controller' => __DIR__ . '/../..' . '/php/classes/controllers/class-onboarding-controller.php',
         'SeriouslySimplePodcasting\\Controllers\\Options_Controller' => __DIR__ . '/../..' . '/php/classes/controllers/class-options-controller.php',
         'SeriouslySimplePodcasting\\Controllers\\Players_Controller' => __DIR__ . '/../..' . '/php/classes/controllers/class-players-controller.php',
         'SeriouslySimplePodcasting\\Controllers\\Settings_Controller' => __DIR__ . '/../..' . '/php/classes/controllers/class-settings-controller.php',
@@ -57,7 +58,7 @@ class ComposerStaticInit3d3d0c5be57201dde13ca2bdd78f7ace
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInit3d3d0c5be57201dde13ca2bdd78f7ace::$classMap;
+            $loader->classMap = ComposerStaticInitae750e5de82187db036fdb8f7562f6cc::$classMap;
 
         }, null, ClassLoader::class);
     }
