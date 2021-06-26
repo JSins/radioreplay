@@ -1,7 +1,6 @@
 .site-main {
-  min-height: 90vh;
-  // overflow: hidden;
   padding-top: 5rem;
+  min-height: calc(100vh - 4.15rem);
   @media only screen and (max-width: $mobile) {
     padding-top: 4rem;
   }
@@ -9,7 +8,7 @@
     @extend .inner-width-lg;
     padding: 2rem;
     @media only screen and (max-width: $mobile) {
-      padding: 1.5rem;
+      padding: 1.25rem;
     }
 
     .sidebar {

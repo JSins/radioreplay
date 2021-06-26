@@ -51,7 +51,9 @@
 			</header>
 			<main>
 				<h2>Über diesen Podcast</h2>
-				<p>Dieser Podcast ist der Hammer lol</p>
+				<p>Bei RadioRePLAY erzählen Erik und Jonas über ihre besten Gaming- und Filmmomente. 
+					Dabei geht es oft um die kleinen Dinge, die sie persönlich, auf welche Art und Weise auch immer, beeindrucken. 
+					Verpackt mit einer großzügigen Portion Leidenschaft für's Hobby gibt es hier sicher für jeden etwas Inspiration abzuholen.</p>
 			</main>
 			<footer>
 				<div class="meta-item">

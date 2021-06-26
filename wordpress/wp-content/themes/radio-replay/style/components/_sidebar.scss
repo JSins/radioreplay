@@ -4,7 +4,7 @@
     z-index: 5;
     left: 0;
     top: 0;
-    padding: 1.5rem;
+    padding: 1rem;
     height: 100vh;
     overflow: scroll;
     left: 100vw;
@@ -60,7 +60,8 @@
         }
       }
       &_recent_episodes,
-      &_recent_entries {
+      &_recent_entries,
+      &_nav_menu {
         ul {
           margin: 0;
           padding: 0;
@@ -90,6 +91,14 @@
             }
           }
         }
+      }
+      &_nav_menu {
+        @media only screen and (min-width: $mobile) {
+          display: none;
+        }
+      }
+      &_text {
+        color: var(--text-alt);
       }
     }
   }

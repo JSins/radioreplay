@@ -83,6 +83,13 @@
     }
   }
 
+  section {
+    background-color: var(--component);
+    border-radius: $b-r;
+    box-shadow: var(--shadow);
+    padding: 2rem;
+  }
+
   // Für die Suchleiste
   .page {
     display: block;

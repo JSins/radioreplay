@@ -13,15 +13,12 @@
 
 	<footer id="colophon" class="site-footer">
 		<div class="site-footer-inner">
-			<div class="footer-contact">
-				Radio Replay
-			</div>
-			<div class="footer-social">
-				Instagram
-			</div>
-			<div class="footer-links">
-				Impressum
-			</div>
+		<?php wp_nav_menu( array(
+			'menu' => "footer-menu"
+		)); ?>
+		<div class="copyright">
+			<p>©<?php echo date("Y"); ?> RadioRePLAY - Alle Rechte vorbehalten.</p>	
+		</div>
 		</div>
 	</footer><!-- #colophon -->
 </div><!-- #page -->
